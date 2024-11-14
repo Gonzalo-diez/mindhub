@@ -1,0 +1,81 @@
+<div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+  <h2 class="text-2xl font-semibold mb-6 text-center">Add New Habit</h2>
+
+  <form (ngSubmit)="addHabit()" #habitForm="ngForm">
+    <!-- Input for Habit Type -->
+    <div class="mb-4">
+      <label for="type" class="block text-sm font-medium text-gray-700 mb-2">
+        Type:
+      </label>
+      <input
+        [(ngModel)]="habit.type"
+        id="type"
+        name="type"
+        type="text"
+        required
+        class="block w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <!-- Checkbox for Days Selection -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-2">Days:</label>
+      <div class="flex flex-wrap">
+        <div *ngFor="let day of days" class="flex items-center mr-4 mb-2">
+          <input
+            type="checkbox"
+            [id]="day"
+            [value]="day"
+            (change)="toggleDaySelection(day)"
+            [checked]="habit.days.includes(day)"
+            class="mr-2 rounded focus:ring-indigo-500 focus:border-indigo-500"
+          />
+          <label [for]="day" class="text-gray-700">{{ day }}</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Time Allocation -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="hours" class="block text-sm font-medium text-gray-700 mb-2">
+          Hours:
+        </label>
+        <input
+          id="hours"
+          type="number"
+          [(ngModel)]="hours"
+          name="hours"
+          (ngModelChange)="setTimeAllocated(hours, minutes)"
+          class="block w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          min="0"
+        />
+      </div>
+      <div>
+        <label for="minutes" class="block text-sm font-medium text-gray-700 mb-2">
+          Minutes:
+        </label>
+        <input
+          id="minutes"
+          type="number"
+          [(ngModel)]="minutes"
+          name="minutes"
+          (ngModelChange)="setTimeAllocated(hours, minutes)"
+          class="block w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          min="0"
+        />
+      </div>
+    </div>
+
+    <!-- Add Habit Button -->
+    <div class="mt-6 text-center">
+      <button
+        type="submit"
+        [disabled]="!habitForm.form.valid"
+        class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+        Add Habit
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,120 @@
+<div class="bg-gray-800 px-4 py-3 md:flex md:justify-between md:items-center">
+  <!-- Brand / Logo -->
+  <div class="flex items-center justify-between">
+    <div class="navbar-brand">
+      <a routerLink="/" class="text-gray-100 text-2xl font-bold logo">MindHub</a>
+    </div>
+    <!-- hamburger button -->
+    <button
+      class="md:hidden text-gray-100 focus:outline-none"
+      (click)="toggleMenu()"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Resposive menu medium/large screen -->
+  <div class="hidden md:flex md:items-center">
+    <a
+      routerLink="/"
+      class="text-gray-100 px-4 py-2 hover:bg-amber-500 hover:text-white"
+      >Home</a
+    >
+    <a
+      routerLink="/tasks/"
+      class="text-gray-100 px-4 py-2 hover:bg-amber-500 hover:text-white"
+      >Tasks</a
+    >
+    <a
+      routerLink="/notes/"
+      class="text-gray-100 px-4 py-2 hover:bg-amber-500 hover:text-white"
+      >Notes</a
+    >
+    <a
+      routerLink="/habits/"
+      class="text-gray-100 px-4 py-2 hover:bg-amber-500 hover:text-white"
+      >Habits</a
+    >
+
+    <!-- User menu -->
+    <div *ngIf="isAuthenticated" class="relative">
+      <button
+        (click)="toggleDropdown()"
+        class="text-gray-100 px-4 py-2 hover:bg-amber-500"
+      >
+        <i class="bx bxs-cog"></i>
+      </button>
+      <!-- Show/hide submenu isDropdownOpen -->
+      <div
+        *ngIf="isDropdownOpen"
+        class="absolute right-0 mt-2 w-48 bg-gray-600 rounded-md shadow-lg z-10"
+      >
+        <a
+          class="block px-4 py-2 text-gray-100 hover:bg-amber-500"
+          (click)="logout()"
+          ><i class="bx bx-log-out-circle"></i> Logout</a
+        >
+      </div>
+    </div>
+
+    <a
+      *ngIf="!isAuthenticated"
+      routerLink="/auth/log-in/"
+      class="text-gray-100 px-4 py-2 hover:bg-amber-500"
+    >
+      <i class="bx bxs-user-circle"></i>
+    </a>
+  </div>
+
+  <!-- Responsive menu small screen -->
+  <nav [ngClass]="isOpen ? 'block' : 'hidden'" class="md:hidden mt-4">
+    <a routerLink="/" class="block px-4 py-2 text-gray-100 hover:bg-amber-500"
+      >Home</a
+    >
+    <a
+      routerLink="/tasks/"
+      class="block px-4 py-2 text-gray-100 hover:bg-amber-500"
+      >Tasks</a
+    >
+    <a
+      routerLink="/notes/"
+      class="block px-4 py-2 text-gray-100 hover:bg-amber-500"
+      >Notes</a
+    >
+    <a
+      routerLink="/habits/"
+      class="block px-4 py-2 text-gray-100 hover:bg-amber-500"
+      >Habits</a
+    >
+
+    <!-- Responsive user menu small screen -->
+    <div *ngIf="isAuthenticated">
+      <a
+        class="block px-4 py-2 text-gray-100 hover:bg-amber-500"
+        (click)="logout()"
+        >Logout</a
+      >
+    </div>
+
+    <a
+      *ngIf="!isAuthenticated"
+      routerLink="/auth/log-in/"
+      class="block px-4 py-2 text-gray-100 hover:bg-amber-500"
+    >
+      <i class="bx bxs-user-circle"></i>
+    </a>
+  </nav>
+</div>

@@ -1,0 +1,61 @@
+<section
+  *ngIf="isAuthenticated; else welcomeSection"
+  class="w-full flex flex-wrap justify-center gap-6 mt-8"
+>
+  <!-- Feature Card: Track Habits -->
+  <div class="bg-white p-6 shadow rounded-lg w-full sm:w-60 text-center">
+    <h2 class="text-xl font-bold text-gray-800 mb-2">Track Habits</h2>
+    <p class="text-gray-600 mb-4">
+      Keep track of your daily habits effortlessly.
+    </p>
+    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">
+      <a routerLink="/habits/addHabit">Learn More</a>
+    </button>
+  </div>
+
+  <!-- Feature Card: Set Tasks -->
+  <div class="bg-white p-6 shadow rounded-lg w-full sm:w-60 text-center">
+    <h2 class="text-xl font-bold text-gray-800 mb-2">Set Tasks</h2>
+    <p class="text-gray-600 mb-4">Set achievable goals and stay motivated.</p>
+    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">
+      <a routerLink="/tasks/addTask">Learn More</a>
+    </button>
+  </div>
+
+  <!-- Feature Card: Set Notes -->
+  <div class="bg-white p-6 shadow rounded-lg w-full sm:w-60 text-center">
+    <h2 class="text-xl font-bold text-gray-800 mb-2">Set Notes</h2>
+    <p class="text-gray-600 mb-4">See your progress and improve every day.</p>
+    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">
+      <a routerLink="/notes/addNote">Learn More</a>
+    </button>
+  </div>
+</section>
+
+<!-- Welcome Section for unauthenticated users -->
+<ng-template #welcomeSection>
+  <section
+    class="text-center my-12 p-8 bg-white shadow rounded-lg w-3/4 mx-auto mt-8"
+  >
+    <h1 class="text-4xl font-extrabold text-gray-800 mb-4">
+      Welcome to MindHub
+    </h1>
+    <p class="text-gray-600 text-lg mb-6">
+      A place where you can manage your habits and reach your goals.
+    </p>
+    <div class="flex justify-center gap-4">
+      <button
+        routerLink="/auth/log-in"
+        class="px-8 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500"
+      >
+        Login
+      </button>
+      <button
+        routerLink="/auth/sign-in"
+        class="px-8 py-2 bg-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-400"
+      >
+        Register
+      </button>
+    </div>
+  </section>
+</ng-template>

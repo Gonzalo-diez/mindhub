@@ -1,0 +1,45 @@
+<div class="container mx-auto p-4">
+  <div *ngIf="!isAuthenticated" class="text-center">
+    <p class="text-red-500 text-lg">User not authenticated</p>
+  </div>
+
+  <div *ngIf="isAuthenticated">
+    <h1 class="text-3xl font-bold text-center mb-4">Your Notes</h1>
+
+    <div *ngIf="errorMessage" class="text-red-500 text-center mb-4">
+      <p>{{ errorMessage }}</p>
+    </div>
+
+    <div *ngIf="notes.length === 0" class="text-center">
+      <p class="text-gray-500 text-lg">You have no notes</p>
+    </div>
+
+    <div
+      *ngIf="notes.length > 0"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+    >
+      <div
+        *ngFor="let note of notes"
+        class="note-block bg-yellow-100 p-6 rounded-lg shadow-md transition duration-300"
+      >
+        <h2 class="note-title text-xl font-semibold mb-2">{{ note.title }}</h2>
+        <p class="note-content text-gray-700 mb-4">{{ note.content }}</p>
+        <div class="flex gap-2 mt-4">
+          <button
+            type="button"
+            class="delete-btn focus:outline-none text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5"
+            (click)="deleteNote(note.id)"
+          >
+            <i class="bx bx-trash"></i>
+          </button>
+          <a
+            class="edit-btn focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5"
+            [routerLink]="['/notes/updateNote', note.id]"
+          >
+            <i class="bx bx-pencil"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

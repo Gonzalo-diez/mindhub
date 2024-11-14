@@ -1,0 +1,128 @@
+<div class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold text-center mb-6">Your Tasks</h2>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="text-red-500 font-semibold text-center mb-4">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Tabs Navigation -->
+  <div class="mb-6">
+    <ul class="flex justify-center border-b mb-4">
+      <li class="mr-1">
+        <a
+          class="inline-block py-2 px-4 text-sm font-medium text-center text-red-700 hover:text-blue-600 rounded-t-lg hover:bg-gray-100"
+          [ngClass]="{ 'border-b-2 border-blue-500': activeTab === 'high' }"
+          (click)="activeTab = 'high'"
+        >
+          High Priority
+        </a>
+      </li>
+      <li class="mr-1">
+        <a
+          class="inline-block py-2 px-4 text-sm font-medium text-center text-yellow-700 hover:text-blue-600 rounded-t-lg hover:bg-gray-100"
+          [ngClass]="{ 'border-b-2 border-blue-500': activeTab === 'medium' }"
+          (click)="activeTab = 'medium'"
+        >
+          Medium Priority
+        </a>
+      </li>
+      <li>
+        <a
+          class="inline-block py-2 px-4 text-sm font-medium text-center text-green-700 hover:text-blue-600 rounded-t-lg hover:bg-gray-100"
+          [ngClass]="{ 'border-b-2 border-blue-500': activeTab === 'low' }"
+          (click)="activeTab = 'low'"
+        >
+          Low Priority
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Tab Content: High Priority -->
+  <div *ngIf="activeTab === 'high'">
+    <ul *ngIf="highPriorityTasks.length > 0; else noHighPriorityTasks" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <li *ngFor="let task of highPriorityTasks" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow border-l-4 border-red-600">
+        <h4 class="text-lg font-semibold mb-2">{{ task.title }}</h4>
+        <p class="text-gray-600 mb-4">{{ task.description }}</p>
+        <p class="text-sm font-semibold text-gray-700">
+          <span>Status:</span>
+          <span [ngClass]="{
+            'text-green-500': task.status.includes('Completed'),
+            'text-yellow-500': task.status.includes('In Progress'),
+            'text-red-500': task.status.includes('Pending')
+          }">{{ task.status }}</span>
+        </p>
+        <div class="flex gap-2 mt-4">
+          <button type="button" class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2" (click)="deleteTask(task.id)">
+            <i class="bx bx-trash"></i> Delete
+          </button>
+          <a class="text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-4 py-2" [routerLink]="['/tasks/updateTask', task.id]">
+            <i class="bx bx-pencil"></i> Edit
+          </a>
+        </div>
+      </li>
+    </ul>
+    <ng-template #noHighPriorityTasks>
+      <p class="text-center text-gray-500">No high-priority tasks found.</p>
+    </ng-template>
+  </div>
+
+  <!-- Tab Content: Medium Priority -->
+  <div *ngIf="activeTab === 'medium'">
+    <ul *ngIf="mediumPriorityTasks.length > 0; else noMediumPriorityTasks" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <li *ngFor="let task of mediumPriorityTasks" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow border-l-4 border-yellow-500">
+        <h4 class="text-lg font-semibold mb-2">{{ task.title }}</h4>
+        <p class="text-gray-600 mb-4">{{ task.description }}</p>
+        <p class="text-sm font-semibold text-gray-700">
+          <span>Status:</span>
+          <span [ngClass]="{
+            'text-green-500': task.status.includes('Completed'),
+            'text-yellow-500': task.status.includes('In Progress'),
+            'text-red-500': task.status.includes('Pending')
+          }">{{ task.status }}</span>
+        </p>
+        <div class="flex gap-2 mt-4">
+          <button type="button" class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2" (click)="deleteTask(task.id)">
+            <i class="bx bx-trash"></i> Delete
+          </button>
+          <a class="text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-4 py-2" [routerLink]="['/tasks/updateTask', task.id]">
+            <i class="bx bx-pencil"></i> Edit
+          </a>
+        </div>
+      </li>
+    </ul>
+    <ng-template #noMediumPriorityTasks>
+      <p class="text-center text-gray-500">No medium-priority tasks found.</p>
+    </ng-template>
+  </div>
+
+  <!-- Tab Content: Low Priority -->
+  <div *ngIf="activeTab === 'low'">
+    <ul *ngIf="lowPriorityTasks.length > 0; else noLowPriorityTasks" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <li *ngFor="let task of lowPriorityTasks" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow border-l-4 border-green-500">
+        <h4 class="text-lg font-semibold mb-2">{{ task.title }}</h4>
+        <p class="text-gray-600 mb-4">{{ task.description }}</p>
+        <p class="text-sm font-semibold text-gray-700">
+          <span>Status:</span>
+          <span [ngClass]="{
+            'text-green-500': task.status.includes('Completed'),
+            'text-yellow-500': task.status.includes('In Progress'),
+            'text-red-500': task.status.includes('Pending')
+          }">{{ task.status }}</span>
+        </p>
+        <div class="flex gap-2 mt-4">
+          <button type="button" class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2" (click)="deleteTask(task.id)">
+            <i class="bx bx-trash"></i> Delete
+          </button>
+          <a class="text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-sm px-4 py-2" [routerLink]="['/tasks/updateTask', task.id]">
+            <i class="bx bx-pencil"></i> Edit
+          </a>
+        </div>
+      </li>
+    </ul>
+    <ng-template #noLowPriorityTasks>
+      <p class="text-center text-gray-500">No low-priority tasks found.</p>
+    </ng-template>
+  </div>
+</div>

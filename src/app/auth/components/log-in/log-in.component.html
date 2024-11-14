@@ -1,0 +1,70 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+  <form
+    [formGroup]="logInForm"
+    (ngSubmit)="onSubmit()"
+    class="bg-white shadow-md rounded-lg p-8 max-w-md w-full space-y-6 mb-20"
+  >
+    <h2 class="text-center text-2xl font-bold text-gray-800">Log In</h2>
+
+    <!-- Error Message -->
+    <div *ngIf="loginError" class="text-center text-sm text-red-600 mb-4">
+      <small>{{ loginError }}</small>
+    </div>
+
+    <!-- Email Field -->
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700 text-center"
+        >Email</label
+      >
+      <input
+        id="email"
+        formControlName="email"
+        type="email"
+        placeholder="Enter your email"
+        required
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      />
+      <div
+        *ngIf="
+          logInForm.get('email')?.invalid && logInForm.get('email')?.touched
+        "
+        class="mt-1 text-sm text-red-600"
+      >
+        <small>Invalid email</small>
+      </div>
+    </div>
+
+    <!-- Password field -->
+    <div>
+      <label for="password" class="block text-sm font-medium text-gray-700 text-center"
+        >Password</label
+      >
+      <input
+        id="password"
+        formControlName="password"
+        type="password"
+        placeholder="Enter your password"
+        required
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      />
+      <div
+        *ngIf="
+          logInForm.get('password')?.invalid &&
+          logInForm.get('password')?.touched
+        "
+        class="mt-1 text-sm text-red-600"
+      >
+        <small>Password is required and must be at least 6 characters.</small>
+      </div>
+    </div>
+
+    <!-- Login button -->
+    <button
+      type="submit"
+      [disabled]="logInForm.invalid"
+      class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
+    >
+      Log In
+    </button>
+  </form>
+</div>
